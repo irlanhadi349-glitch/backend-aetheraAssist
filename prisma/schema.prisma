@@ -1,0 +1,67 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  KONSUMEN
+}
+
+enum StatusPesanan {
+  MENUNGGU_KONFIRMASI
+  DIPROSES
+  SELESAI
+  DIBATALKAN
+}
+
+model Pengguna {
+  id          Int      @id @default(autoincrement())
+  email       String   @unique
+  password    String
+  namaLengkap String
+  telepon     String?
+  role        Role     @default(KONSUMEN)
+  createdAt   DateTime @default(now())
+
+  pesanan Pesanan[]
+}
+
+model Layanan {
+  id        Int       @id @default(autoincrement())
+  namaJasa  String
+  deskripsi String    @db.Text
+  harga     Float
+  gambarUrl String?
+  aktif     Boolean   @default(true)
+  createdAt DateTime  @default(now())
+  pesanan   Pesanan[]
+}
+
+model Pesanan {
+  id               Int           @id @default(autoincrement())
+  penggunaId       Int
+  layananId        Int
+  catatanKebutuhan String        @db.Text
+  status           StatusPesanan @default(MENUNGGU_KONFIRMASI)
+  fileHasilUrl     String?
+  createdAt        DateTime      @default(now())
+  pengguna         Pengguna      @relation(fields: [penggunaId], references: [id], onDelete: Cascade)
+  layanan          Layanan       @relation(fields: [layananId], references: [id], onDelete: Restrict)
+  transaksi        Transaksi?
+}
+
+model Transaksi {
+  id           Int       @id @default(autoincrement())
+  pesananId    Int       @unique
+  jumlahBayar  Float
+  metodeBayar  String?
+  statusLunas  Boolean   @default(false)
+  tanggalBayar DateTime?
+
+  pesanan Pesanan @relation(fields: [pesananId], references: [id], onDelete: Cascade)
+}
