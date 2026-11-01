@@ -1,4 +1,4 @@
-const layananService = require ('../services/layananService');
+const layananService = require ('../services/tempService');
 
 const getAllLayanan = async (req, res) => {
     try{
