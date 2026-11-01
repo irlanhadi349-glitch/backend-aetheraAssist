@@ -20,7 +20,7 @@ const ambilPesananSaya = async (penggunaId) => {
         where:{penggunaId:parseInt(penggunaId)},
         include: {
             layanan: {
-                select:{namaJasa: true, harga: true}
+                select:{namaJasa: true, harga: true, gambarUrl:true}
             }   
         },
         orderBy:{createdAt : 'desc'}
@@ -31,7 +31,7 @@ const ambilSemuaPesanan = async () => {
     return await prisma.pesanan.findMany({
         include:{
             pengguna: {select: {namaLengkap: true, email:true, telepon:true}},
-            layanan : {select:{namaJasa:true,harga:true}}
+            layanan : {select:{namaJasa:true,harga:true, gambarUrl:true}}
         },
         orderBy:{createdAt: 'desc'}
     })

@@ -13,10 +13,12 @@ app.use('/api/pesanan', pesananRoutes);
 app.use('/api/transaksi', transaksiRoutes);
 
 app.get('/', (req, res) => {
-    res.json({ pesan: 'API Sistem Jasa Edit Digital Berjalan Baik' });
+    res.json({ pesan: 'API Sistem Jasa Edit Aethera Aktif' });
 });
 
-const PORT = process.env.PORT || 5000;
+const PORT = 3000;
 app.listen(PORT, '127.0.0.1', () => {
     console.log(`Server Enterprise aktif di http://127.0.0.1:${PORT}`);
 });
+
+module.exports = app;

@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -36,7 +36,7 @@ model Layanan {
   namaJasa  String
   deskripsi String    @db.Text
   harga     Float
-  gambarUrl String?
+  gambarUrl String[]
   aktif     Boolean   @default(true)
   createdAt DateTime  @default(now())
   pesanan   Pesanan[]
