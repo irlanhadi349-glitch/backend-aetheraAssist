@@ -37,7 +37,7 @@ const ambilSemuaPesanan = async () => {
     })
 };
 
-const perbaruiStatus = async (pesananId, status, fileHasilUrl) => {
+const perbaruiStatus = async (pesananId, status) => {
     const statusValid = ['MENUNGGU_KONFIRMASI','DIPROSES','SELESAI','DIBATALKAN'];
     if(!statusValid.includes(status)){
         throw new Error('status tidak valid')
@@ -46,8 +46,7 @@ const perbaruiStatus = async (pesananId, status, fileHasilUrl) => {
     return await prisma.pesanan.update({
         where:{id:parseInt(pesananId)},
         data: {
-            status,
-            fileHasilUrl: fileHasilUrl || null
+            status
         }
     });
 };
