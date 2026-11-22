@@ -40,7 +40,8 @@ const ambilTransaksiById = async(idUser) => {
             userId: idUser
         },
         include: {
-            layanan:true
+            layanan:true,
+            pesanan:true
         }
     });
 
