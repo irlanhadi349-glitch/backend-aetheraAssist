@@ -30,6 +30,26 @@ const ambilTransaksi = async () => {
     return transaksi;
 };
 
+const ambilTransaksiById = async(idUser) => {
+    const idUser = number(idUser);
+    if (!Number.isInteger(idUser) || idUser <= 0) {
+        throw new Error('ID user tidak valid.');
+    }
+     const transaksiSaya = await prisma.transaksi.findUnique({
+        where: {
+            userId: idUser
+        },
+        include: {
+            layanan:true
+        }
+    });
+
+    return transaksiSaya;
+
+
+
+}
+
 const buatTransaksi = async (
     pesananId,
     jumlahBayar,
@@ -112,9 +132,25 @@ const updateStatusBayar = async (
     });
 };
 
+const hapusTransaksi = async (transaksiId) =>
+{
+  const idTransaksi = number(transaksiId);
+  if (!Number.isInteger(idTransaksi) || idTransaksi <= 0) {
+        throw new Error('ID transaksi tidak valid.');
+    }
+
+    return await prisma.transaksi.delete({
+        where:{
+            id:idTransaksi
+        }
+    })
+
+}
 
 module.exports = {
     ambilTransaksi,
+    ambilTransaksiById,
     buatTransaksi,
-    updateStatusBayar
+    updateStatusBayar,
+    hapusTransaksi
 };

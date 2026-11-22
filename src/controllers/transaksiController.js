@@ -8,6 +8,15 @@ const getTransaksi = async (req, res) => {
         return res.status(400).json({status:'gagal',pesan:error.message});
     }
 }
+const getTransaksiById = async (req, res) => {
+    try{
+        const penggunaId = req.user.id; 
+        const transaksi = await transaksiService.ambilTransaksiById(penggunaId);
+        return res.status(200).json({status:'sukses', pesan:'data transaksi anda berhasil diambil', data:transaksi})
+    }catch(error){
+        return res.status(400).json({status:'gagal',pesan:error.message});
+    }
+}
 
 const buatTransaksi = async(req,res) => {
     try{
@@ -31,5 +40,15 @@ const updateStatusTransaksi = async (req,res) => {
     }
 }
 
+const deleteTransaksi = async(req,res) => {
+    try{
+        const transaksiId = req.params.id;
+        const deleteTransaksi = await transaksiService.deleteTransaksi(transaksiId);
+        return res.status(200).json({status:'sukses', pesan:'berhasil menghapus transaksi', data:deleteTransaksi})
+    }catch(error){
+        return res.status(500).json({status:'gagal',pesan:error.message});
+    }
 
-module.exports = {getTransaksi,buatTransaksi,updateStatusTransaksi};
+}
+
+module.exports = {getTransaksi,getTransaksiById,buatTransaksi,updateStatusTransaksi,deleteTransaksi};
