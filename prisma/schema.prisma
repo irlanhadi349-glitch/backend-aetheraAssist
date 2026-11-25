@@ -28,18 +28,20 @@ model Pengguna {
   role        Role     @default(KONSUMEN)
   createdAt   DateTime @default(now())
 
-  pesanan Pesanan[]
+  pesanan    Pesanan[]
+  transaksis Transaksi[]
 }
 
 model Layanan {
-  id        Int       @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   namaJasa  String
-  deskripsi String    @db.Text
+  deskripsi String      @db.Text
   harga     Float
   gambarUrl String[]
-  aktif     Boolean   @default(true)
-  createdAt DateTime  @default(now())
+  aktif     Boolean     @default(true)
+  createdAt DateTime    @default(now())
   pesanan   Pesanan[]
+  transaksi Transaksi[]
 }
 
 model Pesanan {
@@ -57,11 +59,15 @@ model Pesanan {
 
 model Transaksi {
   id           Int       @id @default(autoincrement())
+  penggunaId   Int
   pesananId    Int       @unique
   jumlahBayar  Float
   metodeBayar  String?
   statusLunas  Boolean   @default(false)
   tanggalBayar DateTime?
 
-  pesanan Pesanan @relation(fields: [pesananId], references: [id], onDelete: Cascade)
+  pesanan   Pesanan  @relation(fields: [pesananId], references: [id], onDelete: Cascade)
+  pengguna  Pengguna @relation(fields: [penggunaId], references: [id], onDelete: Cascade)
+  layanan   Layanan? @relation(fields: [layananId], references: [id])
+  layananId Int?
 }

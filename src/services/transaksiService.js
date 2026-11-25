@@ -37,7 +37,7 @@ const ambilTransaksiById = async(userId) => {
     }
      const transaksiSaya = await prisma.transaksi.findUnique({
         where: {
-            userId: idUser
+            penggunaId: idUser
         },
         include: {
             layanan:true,
