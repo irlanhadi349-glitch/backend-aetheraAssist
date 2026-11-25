@@ -53,7 +53,7 @@ const perbaruiStatus = async (pesananId, status) => {
 
 const hapusPesanan = async (idPesanan) => {
     const pesananId = Number(idPesanan);
-    if(!isInteger(pesananId) || pesananId <= 0){
+    if(!Number.isInteger(pesananId) || pesananId <= 0){
         throw new Error("id pesanan tidak valid");
     };
 

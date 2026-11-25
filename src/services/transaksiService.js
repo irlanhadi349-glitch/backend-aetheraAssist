@@ -135,7 +135,7 @@ const updateStatusBayar = async (
 
 const hapusTransaksi = async (transaksiId) =>
 {
-  const idTransaksi = number(transaksiId);
+  const idTransaksi = Number(transaksiId);
   if (!Number.isInteger(idTransaksi) || idTransaksi <= 0) {
         throw new Error('ID transaksi tidak valid.');
     }
