@@ -35,7 +35,7 @@ const ambilTransaksiById = async(userId) => {
     if (!Number.isInteger(idUser) || idUser <= 0) {
         throw new Error('ID user tidak valid.');
     }
-     const transaksiSaya = await prisma.transaksi.findUnique({
+     const transaksiSaya = await prisma.transaksi.findMany({
         where: {
             penggunaId: idUser
         },
