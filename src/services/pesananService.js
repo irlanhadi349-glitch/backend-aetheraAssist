@@ -58,7 +58,7 @@ const hapusPesanan = async (idPesanan) => {
     };
 
     return await prisma.pesanan.delete({
-        where:{id:idPesanan}
+        where:{id:pesananId}
     })
 
 }
