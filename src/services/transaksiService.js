@@ -30,8 +30,8 @@ const ambilTransaksi = async () => {
     return transaksi;
 };
 
-const ambilTransaksiById = async(idUser) => {
-    const idUser = number(idUser);
+const ambilTransaksiById = async(userId) => {
+    const idUser = Number(userId);
     if (!Number.isInteger(idUser) || idUser <= 0) {
         throw new Error('ID user tidak valid.');
     }
