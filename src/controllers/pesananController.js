@@ -47,4 +47,14 @@ const updateOrderStatus = async (req, res) => {
     }
 };
 
-module.exports = { createOrder, getMyOrders, getAllOrders, updateOrderStatus };
+const deleteOrders = async (req,res) => {
+    try{
+        const idPesanan = req.params.id;
+        const pesananDihapus = await pesananService.hapusPesanan(idPesanan);
+        return res.status(200).json({status:'sukses'})
+    }catch(error){
+        return res.status(400).json({ status: 'gagal', pesan: error.message });
+    }
+}
+
+module.exports = { createOrder, getMyOrders, getAllOrders, updateOrderStatus, deleteOrders };

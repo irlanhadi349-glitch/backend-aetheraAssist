@@ -51,4 +51,16 @@ const perbaruiStatus = async (pesananId, status) => {
     });
 };
 
-module.exports = {buatPesanan, ambilPesananSaya, ambilSemuaPesanan, perbaruiStatus};
+const hapusPesanan = async (idPesanan) => {
+    const pesananId = Number(idPesanan);
+    if(!isInteger(pesananId) || pesananId <= 0){
+        throw new Error("id pesanan tidak valid");
+    };
+
+    return await prisma.pesanan.delete({
+        where:{id:idPesanan}
+    })
+
+}
+
+module.exports = {buatPesanan, ambilPesananSaya, ambilSemuaPesanan, perbaruiStatus,hapusPesanan};
