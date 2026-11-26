@@ -37,8 +37,7 @@ const perbaruiLayanan = async (id, dataUpdate) => {
             namaJasa:dataUpdate.namaJasa,
             deskripsi:dataUpdate.deskripsi,
             harga:dataUpdate.harga? parseFloat(dataUpdate.harga):undefined,
-            gambarUrl:dataUpdate.gambarUrl,
-            aktif:dataUpdate.aktif
+            gambarUrl:dataUpdate.foto,
         }
     });
 }
